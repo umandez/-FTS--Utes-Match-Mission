@@ -1,0 +1,91 @@
+author = "Dez";
+onLoadName = "Utes - Survival";
+onLoadMission = "Random Gamemode by Dez";
+joinUnassigned = 0;
+respawn = BASE;
+respawndelay = 5;
+disabledAI = true;
+disableChannels[]={0,1,2};
+enableDebugConsole = 1;
+respawnDialog = 0;
+respawnButton = 0;
+
+class Header
+{
+	gameType = Random;
+	minPlayers = 1;
+	maxPlayers = 75;
+};
+
+wreckLimit = 3;
+wreckRemovalMinTime = 60;
+wreckRemovalMaxTime = 320;
+corpseLimit = 150;
+corpseRemovalMinTime = 999;
+corpseRemovalMaxTime = 9999;
+
+class CfgSounds
+{
+	sounds[] = {};
+	class Maniac
+	{
+		name = "Maniac";
+		sound[] = {"\sounds\maniac.ogg", 1.0, 1};
+		titles[] = {};
+	};
+	class Impressive
+	{
+		name = "Impressive";
+		sound[] = {"\sounds\impressive.ogg", 1.0, 1};
+		titles[] = {};
+	};
+	class MonsterKill
+	{
+		name = "MonsterKill";
+		sound[] = {"\sounds\monsterkill.ogg", 1.0, 1};
+		titles[] = {};
+	};
+	class Unstoppable
+	{
+		name = "Unstoppable";
+		sound[] = {"\sounds\unstoppable.ogg", 1.0, 1};
+		titles[] = {};
+	};
+	class Excellent
+	{
+		name = "Excellent";
+		sound[] = {"\sounds\excellent.ogg", 1.0, 1};
+		titles[] = {};
+	};
+	class Denied
+	{
+		name = "Denied";
+		sound[] = {"\sounds\denied.ogg", 1.0, 1};
+		titles[] = {};
+	};
+	class Headshot
+	{
+		name = "Headshot";
+		sound[] = {"\sounds\headshot.ogg", 1.0, 1};
+		titles[] = {};
+	};
+	class EagleEye
+	{
+		name = "EagleEye";
+		sound[] = {"\sounds\eagleeye.ogg", 1.0, 1};
+		titles[] = {};
+	};
+};
+
+class CfgDebriefing
+{
+	class NotWhitelisted
+	{
+		title = "Mission Failed";
+		subtitle = "You are not white-listed to use this slot";
+		description = "You are not allowed to use this slot because you do not have the appropriate permissions, try another slot.";
+		pictureBackground = "";
+		picture = "";
+		pictureColor[] = {0,0.3,0.6,1};
+	};
+};
