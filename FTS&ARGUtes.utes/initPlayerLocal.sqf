@@ -39,6 +39,20 @@
 		waitUntil {scriptDone _handle};
 	diag_log "Handle Player Spawn - Done";
 
+	[] spawn
+		{
+		Private ["_playerFatigue"];
+		
+		_playerFatigue = getFatigue player;
+		
+		if (_playerFatigue > 0.5)
+			then
+			{
+				player setFatigue 0;
+			};
+		sleep 10;
+	};
+
 /*
 		// Selects a random spawn point out of 31 placed spawn markers
 		_rand = round (random 31);
