@@ -24,6 +24,11 @@ corpseLimit = 150;
 corpseRemovalMinTime = 999;
 corpseRemovalMaxTime = 9999;
 
+class RscTitles
+{
+#include "statusBar.hpp"
+};
+
 class CfgSounds
 {
 	sounds[] = {};

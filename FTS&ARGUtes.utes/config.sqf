@@ -6,3 +6,4 @@ dez_killCount = 0;
 dez_deathCount = 0;
 dez_playerCash = 0;
 dez_kdRatio = 0;
+dez_killStreak = 0;
