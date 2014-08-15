@@ -13,7 +13,7 @@
 	removeAllWeapons player;
 	{player removeMagazine _x} forEach magazines player;
 	removeAllItems player;
-	player removeWeapon "ItemMap";
+	//player removeWeapon "ItemMap";
 	//player removeWeapon "ItemRadio";
 	player removeWeapon "NVGoggles_INDEP";
 	player addWeapon "ItemWatch";

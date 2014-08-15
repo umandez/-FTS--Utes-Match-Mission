@@ -75,6 +75,12 @@ class CfgSounds
 		sound[] = {"\sounds\eagleeye.ogg", 1.0, 1};
 		titles[] = {};
 	};
+	class Humiliation
+	{
+		name = "Humiliation";
+		sound[] = {"\sounds\humiliation.ogg", 1.0, 1};
+		titles[] = {};
+	};
 };
 
 class CfgDebriefing

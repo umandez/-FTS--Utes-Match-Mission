@@ -9,11 +9,30 @@ Private["_victim","_killer","__randomSound","_realNameVictim","_realNameKiller",
 _victim = [_this,0,ObjNull,[ObjNull]] call BIS_fnc_param;
 _killer = [_this,1,ObjNull,[ObjNull]] call BIS_fnc_param;
 
-if (_victim == objNull) exitWith {}; // Dafuqqq???
+//if (_victim == objNull) exitWith {}; // Dafuqqq???
+
+// Calculate KillDeath ratio
+fn_calckdRatio = { 
+
+dez_killCount = _this select 0;
+dez_deathCount = _this select 1;
+
+				if (dez_deathCount > 0)
+					then
+					{
+					dez_kdRatio = (dez_killCount / dez_deathCount);
+					}
+				else
+				{
+		dez_kdRatio = dez_kdRatio + 1;
+	};
+};
 
 	_realNameVictim = name _victim;
 	_realNameKiller = name _killer;
 	_killedDistance = _victim distance _killer;
+	_killedDistance = round _killedDistance;
+	//hint str _killedDistance;
 
 if (_killer == _victim) then
 {
@@ -22,12 +41,13 @@ if (_killer == _victim) then
 	// Player Penalty for killing themselves
 	if (player == _victim && player == _killer) then
 	{
+		playSound "Humiliation";
 		dez_deathCount = dez_deathCount + 1;
 		if (dez_playerCash >= 500) then
 		{dez_playerCash = dez_playerCash - 500;}
 		else
 		{dez_playerCash = 0;};
-		hintSilent "You have lost $500 for commiting suicide! Fool..."
+		hintSilent "You have lost $500 for commiting suicide! Fool...";
 
 		[dez_killCount,dez_deathCount] call fn_calckdRatio;
 		systemChat format ["Kills: %1 | Deaths: %2 | K/D Ratio: %3 | Cash: $%4",dez_killCount,dez_deathCount,dez_kdRatio,dez_playerCash];
@@ -35,7 +55,7 @@ if (_killer == _victim) then
 }
 else
 {
-	switch (_killedDistance) do
+	switch (true) do
 		{
 			case (_killedDistance < 100): {systemChat format ["SYSTEM: %1 was humiliated by %2 from %3 meters away",_realNameVictim,_realNameKiller,_killedDistance];};
 			case ((_killedDistance >= 100) && (_killedDistance < 500)): {systemChat format ["SYSTEM: %1 was killed by %2 from %3 meters away",_realNameVictim,_realNameKiller,_killedDistance];};
@@ -50,7 +70,7 @@ if ((player == _killer) && (player != _victim)) then
 {	
 	dez_killCount = dez_killCount + 1;
 	
-	switch (_killedDistance) do
+	switch (true) do
 		{
 			case (_killedDistance < 50): 
 			{
@@ -107,21 +127,4 @@ if ((player != _killer) && (player == _victim)) then
 
 	[dez_killCount,dez_deathCount] call fn_calckdRatio;
 	systemChat format ["Kills: %1 | Deaths: %2 | K/D Ratio: %3 | Cash: $%4",dez_killCount,dez_deathCount,dez_kdRatio,dez_playerCash];
-};
-
-// Calculate KillDeath ratio
-fn_calckdRatio = { 
-
-dez_killCount = this select 0;
-dez_deathCount = this select 1;
-
-				if (dez_deathCount > 0)
-					then
-					{
-					dez_kdRatio = (dez_killCount / dez_deathCount);
-					}
-				else
-				{
-		dez_kdRatio = dez_kdRatio + 1;
-	};
 };
