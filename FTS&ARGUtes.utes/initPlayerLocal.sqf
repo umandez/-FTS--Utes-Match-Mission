@@ -18,12 +18,6 @@ diag_log "Inistialising Event Handler - Complete!";
 // Remove our weapons as we will not be needing these anymore!
 removeAllWeapons player;
 {player removeMagazine _x} forEach magazines player;
-removeAllItems player;
-player removeWeapon "ItemMap";
-player removeWeapon "NVGoggles_INDEP";
-player addWeapon "ItemWatch";
-player addWeapon "ItemCompass";
-player addWeapon "FirstAidKit";
 
 // Starts Introduction
 if (dez_playIntro) then {

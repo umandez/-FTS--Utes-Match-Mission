@@ -7079,7 +7079,7 @@ class Mission
 		};
 		class Item31
 		{
-			position[]={3836.4585,25.507738,3735.3669};
+			position[]={1457.7927,-0.14566202,1133.5884};
 			name="heliSpawn";
 			type="Empty";
 		};

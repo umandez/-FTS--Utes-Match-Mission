@@ -6,7 +6,6 @@ waitUntil {alive player}; // So we don't try and respawn before the player is al
 	removeAllWeapons player;
 	{player removeMagazine _x} forEach magazines player;
 	removeAllItems player;
-	player removeWeapon "ItemMap";
 	player removeWeapon "ItemRadio";
 	player removeWeapon "NVGoggles_INDEP";
 	player addWeapon "ItemWatch";
@@ -22,20 +21,20 @@ waitUntil {alive player}; // So we don't try and respawn before the player is al
 	_randomGunChance = round (random 100);
 if (_randomGunChance > 90) then {
 	hint "You were lucky and recieved a Silenced PDW, now lookout for the objectives and head inland!";
-	player addWeapon "hgun_PDW2000_Holo_snds_F";
-	player addMagazine "30Rnd_9x21_Mag";
-	player addMagazine "30Rnd_9x21_Mag";
-	player addMagazine "30Rnd_9x21_Mag";
-	player addMagazine "30Rnd_9x21_Mag";
-	}
-	else
-	{
-	hint "You are all set, now I'd head in-land!";
-	player addWeapon "hgun_PDW2000_Holo_F";
 	player addMagazine "30Rnd_9x21_Mag";
 	player addMagazine "30Rnd_9x21_Mag";
 	player addMagazine "30Rnd_9x21_Mag";
 	player addMagazine "30Rnd_9x21_Mag";	
+	player addWeapon "hgun_PDW2000_Holo_snds_F";
+	}
+	else
+	{
+	hint "You are all set, now I'd head in-land!";
+	player addMagazine "30Rnd_9x21_Mag";
+	player addMagazine "30Rnd_9x21_Mag";
+	player addMagazine "30Rnd_9x21_Mag";
+	player addMagazine "30Rnd_9x21_Mag";	
+	player addWeapon "hgun_PDW2000_Holo_F";
 };
 
 // Create a new thread to spawn our status bar
