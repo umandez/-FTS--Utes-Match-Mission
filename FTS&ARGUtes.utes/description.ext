@@ -1,6 +1,6 @@
-author = "Dez";
-onLoadName = "Utes - Survival";
-onLoadMission = "Random Gamemode by Dez";
+author = "=FTS= Dez";
+onLoadName = "=FTS= & [ARG] Utes Deathmatch";
+onLoadMission = "Version 0.1";
 joinUnassigned = 0;
 respawn = BASE;
 respawndelay = 5;
@@ -26,7 +26,7 @@ corpseRemovalMaxTime = 9999;
 
 class RscTitles
 {
-#include "statusBar.hpp"
+	#include "dialog\statusBar.hpp"
 };
 
 class CfgSounds

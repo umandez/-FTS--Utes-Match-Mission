@@ -5,9 +5,15 @@ _countInd = independent countSide playableUnits;
 
 [_countInd] spawn
 {
-if (_countInd > 1) then
-	{	
-	diag_log "Server: Start Mission System";
 
+_countInd = _this select 0;
+
+if (_countInd > 0) then
+	{	
+		while {true} do
+		{
+			sleep 10;
+			diag_log "Server: Start Mission System";
+		};
 	};
-}
+};
