@@ -1,69 +1,28 @@
-/*
-Private ["_countInd"];
+
+Private ["_countInd","_rand"];
+
+dez_fnc_MPhint = { [hint format _this]; };
 
 _countInd = independent countSide playableUnits;
+dez_missionActive = false;
 
-[_countInd] spawn
+while {true} do
 {
-
-_countInd = _this select 0;
-
-if (_countInd > 0) then
+sleep 30;
+	if (_countInd > 0) then
 	{	
 		while {true} do
 		{
-			sleep 10;
-			diag_log "Server: Start Mission System";
+			if (!dez_missionActive) then
+			{
+				diag_log "Server: Enough players online.. starting mission";
+				//_rand = round (random 2); // For when more missions are made
+				execVM "missions\heliDropOff.sqf"
+				sleep 600; //Sleep for 10 mins when a mission has been started
+				[["A mission will be starting shortly..."], "dez_fnc_MPhint", true, false] spawn BIS_fnc_MP;
+			};
+			
 		};
-	};
-};
-*/
-
-
-diag_log "Mission Started";
-_boxAway = false;
-_heliSpawn = getMarkerPos "heliSpawn";
-_veh = createVehicle ["I_Heli_light_03_unarmed_F", _heliSpawn, [], 0, "FLY"];
-_veh allowDamage false;
-_grp1 = createGroup independent;
-_unit = _grp1 createUnit ["I_helipilot_F", Position _veh, [], 0, "NONE"];
-_unit moveInDriver _veh;
-_veh move (getMarkerPos "mission_1");
-_veh flyInHeight 20;
-
-while {!(_boxAway)} do
-{
-		_heliPos = getPos _veh;
-		_missionPos = getMarkerPos "mission_1";
-		_distance = _heliPos distance _missionPos;
-
-	if (_distance < 100) then 
-		{
-			diag_log "Heli Arrived";
-			_box = createVehicle ["Box_East_Wps_F", position _veh, [], 0, "NONE"];
-			_box allowDamage false;
-			_box attachTo [_veh];
-			detach _box;
-			_smoke = createVehicle ["SmokeShellRed", position _box, [], 0, "NONE"];
-			_smoke attachTo [_box];
-			_veh move (getMarkerPos "heliExit");
-			_boxAway = true;
-			_heliDeleteRun = true;
-	};
-};
-
-while {_heliDeleteRun} do
-{
-		_heliPos = getPos _veh;
-		_missionPos = getMarkerPos "heliExit";
-		_distance = _heliPos distance _missionPos;
-
-	if (_distance < 300) then 
-		{
-			diag_log "Heli Deleted";
-			_veh allowDamage true;
-			_veh setDamage 1;
-			diag_log "boom";
-			_heliDeleteRun = false;
-	};
+	}
+else {diag_log "Server: Not Enough players online to start a mission";};
 };
