@@ -1,4 +1,4 @@
-Private ["_boxAway","_heliSpawn","_veh","_grp1","_unit","_heliPos","_missionPos","_distance","_box","_smoke","_heliDeleteRun","_mission","_rand"];
+Private ["_boxAway","_heliSpawn","_veh","_grp1","_unit","_heliPos","_missionPos","_distance","_box","_smoke","_heliDeleteRun","_mission","_rand","_markerstr"];
 
 diag_log "Server: Mission Started";
 ////////// Initalise some vars////////
@@ -37,6 +37,11 @@ while {!(_boxAway)} do
 			detach _box;
 			_smoke = createVehicle ["SmokeShellRed", position _box, [], 0, "NONE"];
 			_smoke attachTo [_box];
+				_markerstr = createMarker ["missionBox",position _box];
+				_markerstr setMarkerShape "ICON";
+				_markerstr setMarkerType "DOT";
+				_markerstr setMarkerText "Ammo Crate!";
+				_markerstr setMarkerColor "colorRed";
 			_veh move (getMarkerPos "heliExit");
 			_boxAway = true;
 			_heliDeleteRun = true;
@@ -68,13 +73,15 @@ while {_heliDeleteRun} do
 //Spawn a script to monitor our box and remove after 6 minutes of being active
 if (_boxAway) then
 {
-	[_box] spawn
+	[_box,_markerstr] spawn
 	{
-		Private ["_box"];
+		Private ["_box","_markerstr"];
 		_box = _this select 0;
+		_markerstr = _this select 1;
 		sleep 360;
 		_box allowDamage true;
 		_box setDamage 1;
+		deleteMarker _markerstr;
 		if (!alive _box) exitWith {diag_log "Server: Mission crate deleted";};
 	};
 };
