@@ -19,7 +19,7 @@ _mission = format ["mission_%1",_rand]; // Concatinating string and number to ge
 
 _veh move (getMarkerPos _mission);
 _veh flyInHeight 20;
-[["Mission/n/nA helicopter has been spotted approaching the island! Get there quickly as it will most likely be dropping supplies!"], "dez_fnc_MPhint", true, false] spawn BIS_fnc_MP;
+[["Mission/n/nA helicopter has been spotted approaching the island! Get there quickly as it will most likely be dropping supplies!"], "fn_MPhint", true, false] spawn BIS_fnc_MP;
 
 while {!(_boxAway)} do
 {
@@ -29,22 +29,23 @@ while {!(_boxAway)} do
 		_distance = _heliPos distance _missionPos;
 
 	if (_distance < 100) then 
-		{
-			diag_log "Server: Heli Arrived";
-			_box = createVehicle ["Box_East_Wps_F", position _veh, [], 0, "NONE"];
-			_box allowDamage false;
-			_box attachTo [_veh];
-			detach _box;
-			_smoke = createVehicle ["SmokeShellRed", position _box, [], 0, "NONE"];
-			_smoke attachTo [_box];
-				_markerstr = createMarker ["missionBox",position _box];
-				_markerstr setMarkerShape "ICON";
-				_markerstr setMarkerType "DOT";
-				_markerstr setMarkerText "Ammo Crate!";
-				_markerstr setMarkerColor "colorRed";
-			_veh move (getMarkerPos "heliExit");
-			_boxAway = true;
-			_heliDeleteRun = true;
+	{
+		diag_log "Server: Heli Arrived";
+		_box = createVehicle ["Box_East_Wps_F", position _veh, [], 0, "NONE"];
+		[_box] call fn_randomiseAmmoBox; // Calls our box loadout...
+		_box allowDamage false;
+		_box attachTo [_veh];
+		detach _box;
+		_smoke = createVehicle ["SmokeShellRed", position _box, [], 0, "NONE"];
+		_smoke attachTo [_box];
+			_markerstr = createMarker ["missionBox",position _box];
+			_markerstr setMarkerShape "ICON";
+			_markerstr setMarkerType "DOT";
+			_markerstr setMarkerText "Ammo Crate!";
+			_markerstr setMarkerColor "colorRed";
+		_veh move (getMarkerPos "heliExit");
+		_boxAway = true;
+		_heliDeleteRun = true;
 	};
 };
 
