@@ -1,9 +1,9 @@
-Private ["_ammoBoxAway","_heliSpawn","_veh","_grp1","_unit","_heliPos","_missionPos","_distance","_ammoBox","_smoke","_heliDeleteRun","_mission","_rand","_markerstr"];
+Private ["_boxAway","_heliSpawn","_veh","_grp1","_unit","_heliPos","_missionPos","_distance","_box","_smoke","_heliDeleteRun","_mission","_rand","_markerstr"];
 
 diag_log "Server: Mission Started";
 ////////// Initalise some vars////////
 dez_missionActive = true;
-_ammoBoxAway = false;
+_boxAway = false;
 _heliDeleteRun = false;
 //////////////////////////////////////
 
@@ -12,42 +12,42 @@ _veh = createVehicle ["I_Heli_light_03_unarmed_F", _heliSpawn, [], 0, "FLY"];
 _veh allowDamage false;
 _grp1 = createGroup independent;
 _unit = _grp1 createUnit ["I_helipilot_F", Position _veh, [], 0, "NONE"];
-_unit moveInDriver _veh;
 _unit allowDamage false;
+_unit moveInDriver _veh;
 
 _rand = round (random 12);
 _mission = format ["mission_%1",_rand]; // Concatinating string and number to get spawn marker number e.g. mission_1
 	_markerstr = createMarker ["missionBox",getMarkerPos _mission];
 	_markerstr setMarkerShape "ICON";
 	_markerstr setMarkerType "mil_dot";
-	_markerstr setMarkerText "Mission: Crate!";
+	_markerstr setMarkerText "Mission: Armed LittleBird!";
 	_markerstr setMarkerColor "colorRed";
 
 _veh move (getMarkerPos _mission);
 _veh flyInHeight 20;
-[["Mission: A helicopter has been spotted approaching the island! Get there quickly as it will most likely be dropping supplies!"], "fn_MPhint", true, false] spawn BIS_fnc_MP;
+[["Mission: LittleBird Armed Heli drop incoming! Go and claim it for yourself!"], "fn_MPhint", true, false] spawn BIS_fnc_MP;
 systemChat _mission;
 
-while {!(_ammoBoxAway)} do
+while {!(_boxAway)} do
 {
 	sleep 1;
 		_heliPos = getPos _veh;
 		_missionPos = getMarkerPos _mission;
 		_distance = _heliPos distance _missionPos;
-
 	if (_distance < 100) then 
 	{
 		diag_log "Server: Heli Arrived";
-		_ammoBox = createVehicle ["Box_NATO_WpsSpecial_F", position _veh, [], 0, "NONE"];
-		[_ammoBox] call fn_randomiseAmmoBox; // Calls our box loadout...
-		_ammoBox allowDamage false;
-		_ammoBox attachTo [_veh];
-		detach _ammoBox;
-		_smoke = createVehicle ["SmokeShellRed", position _ammoBox, [], 0, "NONE"];
-		_smoke attachTo [_ammoBox];
+		_box = createVehicle ["B_Heli_Light_01_armed_F", position _veh, [], 0, "CAN COLLIDE"];  
+		_box allowDamage false;
+		_box attachTo [_veh, [0,0,-2]];
+		detach _box;
+		sleep 3;
+		_box allowDamage true;
+		_smoke = createVehicle ["SmokeShellRed", position _box, [], 0, "NONE"];
+		_smoke attachTo [_box];
 		_veh flyInHeight 40;
 		_veh move (getMarkerPos "heliExit");
-		_ammoBoxAway = true;
+		_boxAway = true;
 		_heliDeleteRun = true;
 	};
 };
@@ -75,17 +75,13 @@ while {_heliDeleteRun} do
 };
 
 //Spawn a script to monitor our box and remove after 6 minutes of being active
-if (_ammoBoxAway) then
+if (_boxAway) then
 {
-	[_ammoBox,_markerstr] spawn
+	[_box,_markerstr] spawn
 	{
-		Private ["_ammoBox","_markerstr"];
-		_ammoBox = _this select 0;
+		Private ["_box","_markerstr"];
+		_box = _this select 0;
 		_markerstr = _this select 1;
-		sleep 240;
-		_ammoBox allowDamage true;
-		_ammoBox setDamage 1;
 		deleteMarker _markerstr;
-		if (!alive _ammoBox) exitWith {diag_log "Server: Mission crate deleted";};
 	};
 };

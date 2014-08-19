@@ -27,17 +27,24 @@ fn_MPhint = {
 
 fn_randomiseAmmoBox = {
 
-Private ["_box","_randWeapons","randItems"];
+Private ["_ammoBox","_randWeapons","_randItems"];
 
 	_box = _this select 0;
 
-	removeAllWeapons _box;
-	{_box removeMagazine _x} forEach magazines _box;
-	removeAllItems _box;
+	clearWeaponCargoGlobal _box;
+	clearMagazineCargoGlobal _box;
+	clearItemCargoGlobal _box;
 	
-	_randItems = round (random 4)
-	switch {__randItems} do
+	_randItems = round (random 6);
+	switch (_randItems) do
 	{
+		case 0: {
+					_box addItemCargoGlobal["optic_Holosight",1];
+					_box addItemCargoGlobal["optic_Hamr",1];
+					_box addItemCargoGlobal["optic_Arco",1];
+					_box addItemCargoGlobal["optic_DMS",1];
+					_box addItemCargoGlobal["optic_tws_mg",1];
+				};
 		case 1: {
 					_box addItemCargoGlobal["optic_MRCO",1];
 					_box addItemCargoGlobal["optic_Hamr",1];
@@ -57,7 +64,6 @@ Private ["_box","_randWeapons","randItems"];
 					_box addItemCargoGlobal["optic_LRPS",1];
 				};
 		case 3: {
-
 					_box addItemCargoGlobal["acc_pointer_IR",1];
 					_box addItemCargoGlobal["optic_Aco",1];
 					_box addItemCargoGlobal["optic_ACO_grn",1];
@@ -102,18 +108,15 @@ Private ["_box","_randWeapons","randItems"];
 					_box addItemCargoGlobal["optic_DMS",1];
 					_box addItemCargoGlobal["optic_LRPS",1];
 				};
-		default {
-					_box addItemCargoGlobal["optic_Holosight",1];
-					_box addItemCargoGlobal["optic_Hamr",1];
-					_box addItemCargoGlobal["optic_Arco",1];
-					_box addItemCargoGlobal["optic_DMS",1];
-					_box addItemCargoGlobal["optic_tws_mg",1];
-				};
 	};
 
 	_randWeapons = round (random 28);
-	switch {_randWeapons} do
+	switch (_randWeapons) do
 	{
+		case 0: {
+					_box addWeaponCargoGlobal["srifle_EBR_ACO_F",1];
+					_box addMagazineCargoGlobal["20Rnd_762x51_Mag",5];
+				};
 		case 1: {
 					_box addWeaponCargoGlobal["srifle_EBR_ACO_F",1];
 					_box addMagazineCargoGlobal["20Rnd_762x51_Mag",5];
@@ -227,10 +230,6 @@ Private ["_box","_randWeapons","randItems"];
 				};
 		case 28: {
 					_box addWeaponCargoGlobal["SMG_01_Holo_F",1];
-					_box addMagazineCargoGlobal["30Rnd_45ACP_Mag_SMG_01",5];
-				};
-		default {
-					_box addWeaponCargoGlobal["SMG_01_F",1];
 					_box addMagazineCargoGlobal["30Rnd_45ACP_Mag_SMG_01",5];
 				};
 	};

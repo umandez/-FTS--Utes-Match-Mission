@@ -14,6 +14,9 @@ _killer = [_this,1,ObjNull,[ObjNull]] call BIS_fnc_param;
 	_killedDistance = _victim distance _killer;
 	_killedDistance = round _killedDistance;
 
+if (_killer == objNull) exitWith {};
+if (_victim == objNull) exitWith {};
+
 if (_killer == _victim) then
 {
 	systemChat format ["%1 has made a fool of themselves!",_realNameVictim];
@@ -109,6 +112,7 @@ if ((player != _killer) && (player == _victim)) then
 	systemChat format ["Kills: %1 | Deaths: %2 | K/D Ratio: %3 | Cash: $%4",dez_killCount,dez_deathCount,dez_kdRatio,dez_playerCash];
 };
 
+/*
 switch (true) do
 {
 	case (dez_killStreak = 5): {["5",dez_killStreak] execVM "killStreaks.sqf";};
@@ -116,3 +120,4 @@ switch (true) do
 	case (dez_killStreak = 15): {["15",dez_killStreak] execVM "killStreaks.sqf";};
 	case (dez_killStreak = 20): {["20",dez_killStreak] execVM "killStreaks.sqf";};
 };
+*/

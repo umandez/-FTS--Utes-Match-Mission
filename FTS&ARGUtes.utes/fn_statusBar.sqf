@@ -18,6 +18,6 @@ systemChat format["Loading status bar...", _rscLayer];
 	while {true} do
 	{
 		sleep 1;
-		((uiNamespace getVariable "osefStatusBar")displayCtrl 1000)ctrlSetText format["FPS: %1 | GRIDREF: %2 | Players: %3 | Kills: %4 | Deaths: %5 | K/D Ratio: %6 | Cash: $%7", round diag_fps, mapGridPosition player, independent countSide playableUnits, dez_killCount, dez_deathCount, dez_kdRatio, dez_playerCash];
+		((uiNamespace getVariable "osefStatusBar")displayCtrl 1000)ctrlSetText format["FPS: %1 | Players: %2 | Kills: %3 | Deaths: %4 | K/D Ratio: %5 | Cash: $%6", round diag_fps, independent countSide playableUnits, dez_killCount, dez_deathCount, dez_kdRatio, dez_playerCash];
 	}; 
 };
