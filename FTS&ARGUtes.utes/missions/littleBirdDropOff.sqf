@@ -1,9 +1,9 @@
-Private ["_boxAway","_heliSpawn","_veh","_grp1","_unit","_heliPos","_missionPos","_distance","_box","_smoke","_heliDeleteRun","_mission","_rand","_markerstr"];
+Private ["_littleBirdAway","_heliSpawn","_veh","_grp1","_unit","_heliPos","_missionPos","_distance","_littleBird","_smoke","_heliDeleteRun","_mission","_rand","_markerstr"];
 
 diag_log "Server: Mission Started";
 ////////// Initalise some vars////////
 dez_missionActive = true;
-_boxAway = false;
+_littleBirdAway = false;
 _heliDeleteRun = false;
 //////////////////////////////////////
 
@@ -28,7 +28,7 @@ _veh flyInHeight 20;
 [["Mission: LittleBird Armed Heli drop incoming! Go and claim it for yourself!"], "fn_MPhint", true, false] spawn BIS_fnc_MP;
 systemChat _mission;
 
-while {!(_boxAway)} do
+while {!(_littleBirdAway)} do
 {
 	sleep 1;
 		_heliPos = getPos _veh;
@@ -37,17 +37,17 @@ while {!(_boxAway)} do
 	if (_distance < 100) then 
 	{
 		diag_log "Server: Heli Arrived";
-		_box = createVehicle ["B_Heli_Light_01_armed_F", position _veh, [], 0, "CAN COLLIDE"];  
-		_box allowDamage false;
-		_box attachTo [_veh, [0,0,-2]];
-		detach _box;
+		_littleBird = createVehicle ["B_Heli_Light_01_armed_F", [position _veh select 0, position _veh select 1, 0], [], 0, "CAN COLLIDE"];  
+		_littleBird allowDamage false;
+		_littleBird attachTo [_veh, [0,0,-2]];
+		detach _littleBird;
 		sleep 3;
-		_box allowDamage true;
-		_smoke = createVehicle ["SmokeShellRed", position _box, [], 0, "NONE"];
-		_smoke attachTo [_box];
+		_littleBird allowDamage true;
+		_smoke = createVehicle ["SmokeShellRed", position _littleBird, [], 0, "NONE"];
+		_smoke attachTo [_littleBird];
 		_veh flyInHeight 40;
 		_veh move (getMarkerPos "heliExit");
-		_boxAway = true;
+		_littleBirdAway = true;
 		_heliDeleteRun = true;
 	};
 };
@@ -75,12 +75,12 @@ while {_heliDeleteRun} do
 };
 
 //Spawn a script to monitor our box and remove after 6 minutes of being active
-if (_boxAway) then
+if (_littleBirdAway) then
 {
-	[_box,_markerstr] spawn
+	[_littleBird,_markerstr] spawn
 	{
-		Private ["_box","_markerstr"];
-		_box = _this select 0;
+		Private ["_littleBird","_markerstr"];
+		_littleBird = _this select 0;
 		_markerstr = _this select 1;
 		deleteMarker _markerstr;
 	};

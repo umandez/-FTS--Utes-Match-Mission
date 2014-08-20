@@ -8,6 +8,7 @@ waitUntil {alive player}; // So we don't try and respawn before the player is al
 	removeAllItems player;
 	player removeWeapon "ItemRadio";
 	player removeWeapon "NVGoggles_INDEP";
+	player addWeapon "ItemMap";
 	player addWeapon "ItemWatch";
 	player addWeapon "ItemCompass";
 	player addWeapon "FirstAidKit";

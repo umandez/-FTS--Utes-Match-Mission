@@ -12,7 +12,7 @@ diag_log "Inistialising Functions";
 diag_log "Inistialising Functions - Complete!";
 
 diag_log "Inistialising Event Handler";
-//	player addMPEventHandler["MPKilled", {_this execVM "killedPlayer.sqf"}];
+	player addMPEventHandler["MPKilled", {_this execVM "killedPlayer.sqf"}];
 diag_log "Inistialising Event Handler - Complete!";
 
 // Remove our weapons as we will not be needing these anymore!

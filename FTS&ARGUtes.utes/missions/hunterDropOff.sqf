@@ -1,9 +1,9 @@
-Private ["_boxAway","_heliSpawn","_veh","_grp1","_unit","_heliPos","_missionPos","_distance","_box","_smoke","_heliDeleteRun","_mission","_rand","_markerstr"];
+Private ["_hunterAway","_heliSpawn","_veh","_grp1","_unit","_heliPos","_missionPos","_distance","_hunter","_smoke","_heliDeleteRun","_mission","_rand","_markerstr"];
 
 diag_log "Server: Mission Started";
 ////////// Initalise some vars////////
 dez_missionActive = true;
-_boxAway = false;
+_hunterAway = false;
 _heliDeleteRun = false;
 //////////////////////////////////////
 
@@ -28,7 +28,7 @@ _veh flyInHeight 20;
 [["Mission: Hunter Heli drop incoming! Go and claim it for yourself!"], "fn_MPhint", true, false] spawn BIS_fnc_MP;
 systemChat _mission;
 
-while {!(_boxAway)} do
+while {!(_hunterAway)} do
 {
 	sleep 1;
 		_heliPos = getPos _veh;
@@ -37,17 +37,17 @@ while {!(_boxAway)} do
 	if (_distance < 100) then 
 	{
 		diag_log "Server: Heli Arrived";
-		_box = createVehicle ["B_MRAP_01_F", position _veh, [], 0, "CAN COLLIDE"];  
-		_box allowDamage false;
-		_box attachTo [_veh, [0,0,-2]];
-		detach _box;
+		_hunter = createVehicle ["B_MRAP_01_F", position _veh, [], 0, "CAN COLLIDE"];  
+		_hunter allowDamage false;
+		_hunter attachTo [_veh, [0,0,-2]];
+		detach _hunter;
 		sleep 3;
-		_box allowDamage true;
-		_smoke = createVehicle ["SmokeShellRed", position _box, [], 0, "NONE"];
-		_smoke attachTo [_box];
+		_hunter allowDamage true;
+		_smoke = createVehicle ["SmokeShellRed", position _hunter, [], 0, "NONE"];
+		_smoke attachTo [_hunter];
 		_veh flyInHeight 40;
 		_veh move (getMarkerPos "heliExit");
-		_boxAway = true;
+		_hunterAway = true;
 		_heliDeleteRun = true;
 	};
 };
@@ -75,12 +75,12 @@ while {_heliDeleteRun} do
 };
 
 //Spawn a script to monitor our box and remove after 6 minutes of being active
-if (_boxAway) then
+if (_hunterAway) then
 {
-	[_box,_markerstr] spawn
+	[_hunter,_markerstr] spawn
 	{
-		Private ["_box","_markerstr"];
-		_box = _this select 0;
+		Private ["_hunter","_markerstr"];
+		_hunter = _this select 0;
 		_markerstr = _this select 1;
 		deleteMarker _markerstr;
 	};

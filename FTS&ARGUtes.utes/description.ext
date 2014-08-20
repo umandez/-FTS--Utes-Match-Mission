@@ -1,6 +1,6 @@
-author = "=FTS= Dez";
-onLoadName = "=FTS= & [ARG] Utes Deathmatch";
-onLoadMission = "Version 0.1";
+author = "=FTS= Dez & =FTS= Gstylez";
+onLoadName = "=FTS= Utes Deathmatch";
+onLoadMission = "Version 0.2";
 joinUnassigned = 0;
 respawn = BASE;
 respawndelay = 5;
@@ -12,7 +12,7 @@ respawnButton = 0;
 
 class Header
 {
-	gameType = Random;
+	gameType = Deathmatch;
 	minPlayers = 1;
 	maxPlayers = 75;
 };

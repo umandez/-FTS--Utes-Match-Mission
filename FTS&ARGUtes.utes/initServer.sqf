@@ -16,7 +16,7 @@ sleep 10;
 	if (_countInd > 0) then
 	{	
 		diag_log "Server: Enough players online.. starting mission";
-		_randMission = round (random 5); // For when more missions are made
+		_randMission = round (random 7); // For when more missions are made
 		systemChat str _randMission;
 		switch (_randMission) do
 		{
@@ -25,6 +25,8 @@ sleep 10;
 			case 3: {execVM "missions\littleBirdDropOff.sqf"};
 			case 4: {execVM "missions\atvDropOff.sqf"};
 			case 5: {execVM "missions\heliDropOff.sqf"};
+			case 6: {execVM "missions\heliDropOff.sqf"};
+			case 7: {execVM "missions\heliDropOff.sqf"};
 		};
 		sleep dez_missionTimer; //Sleep for 10 mins when a mission has been started
 		[["A mission will be starting shortly..."], "fn_MPhint", true, false] spawn BIS_fnc_MP;		

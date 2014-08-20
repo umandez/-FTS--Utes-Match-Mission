@@ -1,9 +1,9 @@
-Private ["_boxAway","_heliSpawn","_veh","_grp1","_unit","_heliPos","_missionPos","_distance","_box","_smoke","_heliDeleteRun","_mission","_rand","_markerstr"];
+Private ["_ATVAway","_heliSpawn","_veh","_grp1","_unit","_heliPos","_missionPos","_distance","_ATV","_smoke","_heliDeleteRun","_mission","_rand","_markerstr"];
 
 diag_log "Server: Mission Started";
 ////////// Initalise some vars////////
 dez_missionActive = true;
-_boxAway = false;
+_ATVAway = false;
 _heliDeleteRun = false;
 //////////////////////////////////////
 
@@ -28,7 +28,7 @@ _veh flyInHeight 20;
 [["Mission: ATV Heli drop incoming! Go and claim it for yourself!"], "fn_MPhint", true, false] spawn BIS_fnc_MP;
 systemChat _mission;
 
-while {!(_boxAway)} do
+while {!(_ATVAway)} do
 {
 	sleep 1;
 		_heliPos = getPos _veh;
@@ -37,17 +37,17 @@ while {!(_boxAway)} do
 	if (_distance < 100) then 
 	{
 		diag_log "Server: Heli Arrived";
-		_box = createVehicle ["B_G_Quadbike_01_F", position _veh, [], 0, "CAN COLLIDE"];  
-		_box allowDamage false;
-		_box attachTo [_veh, [0,0,-2]];
-		detach _box;
+		_ATV = createVehicle ["B_G_Quadbike_01_F", position _veh, [], 0, "CAN COLLIDE"];  
+		_ATV allowDamage false;
+		_ATV attachTo [_veh, [0,0,-2]];
+		detach _ATV;
 		sleep 3;
-		_box allowDamage true;
-		_smoke = createVehicle ["SmokeShellRed", position _box, [], 0, "NONE"];
-		_smoke attachTo [_box];
+		_ATV allowDamage true;
+		_smoke = createVehicle ["SmokeShellRed", position _ATV, [], 0, "NONE"];
+		_smoke attachTo [_ATV];
 		_veh flyInHeight 40;
 		_veh move (getMarkerPos "heliExit");
-		_boxAway = true;
+		_ATVAway = true;
 		_heliDeleteRun = true;
 	};
 };
@@ -75,12 +75,12 @@ while {_heliDeleteRun} do
 };
 
 //Spawn a script to monitor our box and remove after 6 minutes of being active
-if (_boxAway) then
+if (_ATVAway) then
 {
-	[_box,_markerstr] spawn
+	[_ATV,_markerstr] spawn
 	{
-		Private ["_box","_markerstr"];
-		_box = _this select 0;
+		Private ["_ATV","_markerstr"];
+		_ATV = _this select 0;
 		_markerstr = _this select 1;
 		deleteMarker _markerstr;
 	};
